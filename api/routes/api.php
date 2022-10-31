@@ -22,7 +22,7 @@ Route::prefix("v1")
         /**
          * Login user 
          */
-        Route::post("login", [LoginController::class, "store"]);
-        
+        Route::post("login", [LoginController::class, "login"]);
+
 
     });
