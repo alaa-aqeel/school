@@ -17,12 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix("v1")
+    ->name("v1.")
     ->group(function(){
 
         /**
          * Login user 
          */
-        Route::post("login", [LoginController::class, "login"]);
+        Route::post("login", [LoginController::class, "login"])->name("auth.login");
 
 
     });
