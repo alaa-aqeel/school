@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'is_active',
         "is_super",
+        'last_login_at',
     ];
 
     /**
@@ -42,6 +43,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login_at' => 'datetime'
     ];
 
 

@@ -22,10 +22,11 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => Hash::make("123456789"), // 123456789
+            'password' => Hash::make("12345678"),
             'remember_token' => Str::random(10),
             'is_active' => 1,
-            'is_super' => 1,
+            'is_super' => 0,
+            'last_login_at' => now()
         ];
     }
 

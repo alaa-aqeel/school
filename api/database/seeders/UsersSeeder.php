@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -17,13 +18,11 @@ class UsersSeeder extends Seeder
     public function run()
     {
         
-        DB::table("users")
-            ->insert([
+        User::factory()
+            ->create([
+                "name" => "super admin",
                 "email" => "admin@email.com",
-                "name"  => "admin",
-                "password" => Hash::make("12345678"),
-                "is_active" => 1,
-                "is_super"  => 1
+                'is_super' => 1,
             ]);
     }
 }
