@@ -28,7 +28,7 @@ Route::prefix("v1")
 
 
         /**
-         * Users 
+         * Users  
          */
         Route::apiResource("users", UsersController::class);
 
