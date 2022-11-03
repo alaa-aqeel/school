@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Admin\UsersController;
 use App\Http\Controllers\API\Auth\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,5 +26,10 @@ Route::prefix("v1")
          */
         Route::post("login", [LoginController::class, "login"])->name("auth.login");
 
+
+        /**
+         * Users 
+         */
+        Route::apiResource("users", UsersController::class);
 
     });

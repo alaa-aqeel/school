@@ -45,13 +45,13 @@ abstract class BaseRepository implements BaseRepositoryInterface {
      * @param mixed $args  @default []
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function filter(mixed $args = [])
+    public function filter(mixed $args = [], string $sortBy = "id", string $direction = "desc")
     {
-        $filter = $this->model::orderBy();
+        $filter = $this->model::orderBy($sortBy, $direction);
 
         if (isset($args[$this->primaryKey])) {
 
-            $filter->where($this->primaryKey, $args['primaryKey']);
+            $filter->where($this->primaryKey, $args[$this->primaryKey]);
         }
 
         return $filter;
@@ -78,7 +78,9 @@ abstract class BaseRepository implements BaseRepositoryInterface {
     {
         $recode = $this->filter([$this->primaryKey => $value])->first();
         
-        return $recode ?? abort(404);
+        return $recode ?? abort(response()->json([
+            "messages" => "messages.notfound",
+        ], 404));
     }
 
 
@@ -102,8 +104,10 @@ abstract class BaseRepository implements BaseRepositoryInterface {
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function update(string|int $primaryKey, mixed $data)
-    {
-        return $this->get($primaryKey)->update($data);
+    {   
+        $user = $this->get($primaryKey);
+        $user->update($data);
+        return $user;
     }
 
 

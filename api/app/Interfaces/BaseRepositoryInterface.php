@@ -25,9 +25,11 @@ interface BaseRepositoryInterface {
      * Filter recode 
      * 
      * @param mixed $args  @default []
+     * @param string $sortBy  @default "id"
+     * @param string $direction  @default "desc"
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function filter(mixed $args = []);
+    public function filter(mixed $args = [], string $sortBy = "id", string $direction = "desc");
 
     /**
      * Get all recodes 
