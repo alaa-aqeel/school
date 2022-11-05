@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\BaseRepositoryInterface;
+use App\Models\Stage;
 use Illuminate\Http\Request;
 
 class StageController extends Controller
@@ -16,6 +17,7 @@ class StageController extends Controller
     function __construct(BaseRepositoryInterface $stage)
     {   
         $this->stage = $stage;
+        $this->stage->setModel(Stage::class);
     }
 
 

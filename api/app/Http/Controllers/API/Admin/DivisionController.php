@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\BaseRepositoryInterface;
+use App\Models\Division;
 use Illuminate\Http\Request;
 
 class DivisionController extends Controller
@@ -16,6 +17,7 @@ class DivisionController extends Controller
     function __construct(BaseRepositoryInterface $division)
     {   
         $this->division = $division;
+        $this->division->setModel(Division::class);
     }
 
 
