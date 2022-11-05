@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\API\Admin\DivisionController;
+use App\Http\Controllers\API\Admin\StageController;
 use App\Http\Controllers\API\Admin\UsersController;
 use App\Http\Controllers\API\Auth\LoginController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,19 +18,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::prefix("v1")
-    ->name("v1.")
-    ->group(function(){
-
-        /**
-         * Login user 
-         */
-        Route::post("login", [LoginController::class, "login"])->name("auth.login");
+/**
+ * Login user 
+ * 
+ */
+Route::post("login", [LoginController::class, "login"])->name("auth.login");
 
 
-        /**
-         * Users  
-         */
-        Route::apiResource("users", UsersController::class);
+/**
+ * Users  
+ * 
+ */
+Route::apiResource("users", UsersController::class);
 
-    });
+/**
+ * Stage   
+ * 
+ */
+Route::apiResource("stages", StageController::class);
+
+/**
+ * Stage   
+ * 
+ */
+Route::apiResource("divisions", DivisionController::class);

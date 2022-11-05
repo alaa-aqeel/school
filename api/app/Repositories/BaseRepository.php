@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\BaseRepositoryInterface;
 
-abstract class BaseRepository implements BaseRepositoryInterface {
+class BaseRepository implements BaseRepositoryInterface {
 
     /**
      * @var \Illuminate\Database\Eloquent\Model
