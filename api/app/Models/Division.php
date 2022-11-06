@@ -19,4 +19,10 @@ class Division extends Model
         'name',
     ];
 
+
+    public function stages()
+    {
+
+        return $this->belongsToMany(Stage::class, "divisions_has_stages");
+    }
 }

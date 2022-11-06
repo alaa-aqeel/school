@@ -3,18 +3,19 @@
 namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Interfaces\BaseRepositoryInterface;
+use App\Http\Requests\StageRequest;
+use App\Http\Resources\StageResource;
+use App\Interfaces\StageRepositoryInterface;
 use App\Models\Stage;
-use Illuminate\Http\Request;
 
 class StageController extends Controller
 {
     /**
-     * @var \App\Interfaces\BaseRepositoryInterface
+     * @var \App\Interfaces\StageRepositoryInterface
      */
-    private BaseRepositoryInterface $stage;
+    private StageRepositoryInterface $stage;
 
-    function __construct(BaseRepositoryInterface $stage)
+    function __construct(StageRepositoryInterface $stage)
     {   
         $this->stage = $stage;
         $this->stage->setModel(Stage::class);
@@ -22,72 +23,71 @@ class StageController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the stages.
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\StageResource
      */
     public function index()
-    {
-        
-        return response()->json( $this->stage->all() );
+    {   
+        $stages = $this->stage->all();
+
+        return StageResource::collection($stages);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created stages in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\StageRequest  $request
+     * @return \App\Http\Resources\StageResource
      */
-    public function store(Request $request)
+    public function store(StageRequest $request)
     {
-        $validated = $request->validate([
-            "name" => "required|string|unique:stages,name",
-        ]);
+        $validated = $request->validated();
 
         $stage = $this->stage->create($validated);
-
-        return response()->json([
-            "data" => $stage,
+        
+        $resource = new StageResource($stage);
+        $resource->additional([
             "message" => __("messages.created")
-        ], 201);
+        ]);
+
+        return $resource->response()->setStatusCode(201);
     }
 
     /**
-     * Display the stage resource.
+     * Display the stage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\StageResource
      */
     public function show($id)
     {
         $stage = $this->stage->get($id);
 
-        return response()->json($stage);
+        return new StageResource($stage);
     }
 
     /**
-     * Update the stage resource in storage.
+     * Update the stage in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StageRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\StageResource
      */
-    public function update(Request $request, $id)
+    public function update(StageRequest $request, $id)
     {
-        $validated = $request->validate([
-            "name" => "required|string|unique:stages,name,".$id,
-        ]);
-
+        $validated = $request->validated();
         $stage = $this->stage->update($id, $validated);
-
-        return response()->json([
-            "data" => $stage,
+        $resource = new StageResource($stage);
+        $resource->additional([
             "message" => __("messages.updated")
         ]);
+
+        return $resource;
     }
 
     /**
-     * Remove the stage resource from storage.
+     * Remove the stage from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
