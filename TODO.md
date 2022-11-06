@@ -18,9 +18,10 @@
     [-] testing 
     [+] reuqest + resource 
     [+] relate to divisions 
+    [+] respostiroy
 
 ### [+] create divisions ( classrooms ) 
     [+] migrations + model 
     [+] controller 
     [+] testing 
-    [+] reuqest + resource 
+    [+] resource 
