@@ -23,19 +23,27 @@ class UsersController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the users.
      *
+     * @param  \lluminate\Http\Request  $request
      * @return \App\Http\Resources\UserResource
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->user->all();
+        $users = $this->user->paginate(
+            $request->get("page", 10),
+            [
+                "search" => $request->get("search", ''),
+            ],
+            $request->get("order", 'id'),
+            $request->get("direction", 'desc'),
+        );
 
         return UserResource::collection($users);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created user in storage.
      *
      * @param  \App\Http\Requests\UserRequest  $request
      * @return \App\Http\Resources\UserResource
@@ -55,7 +63,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified user.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -67,7 +75,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified user in storage.
      *
      * @param  \App\Http\Requests\UserRequest  $request
      * @param  int  $id
@@ -87,7 +95,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified user from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

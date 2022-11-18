@@ -24,8 +24,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data["password"]);
-        } else {
-            
+        } else {          
             // if is_null(password) 
             unset($data['password']);
         }
@@ -45,5 +44,27 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $this->hashPassword($data);
 
         return parent::update($primaryKey, $data);
+    }
+
+    /**
+     * Filter recode 
+     * 
+     * @param mixed $args  @default []
+     * @param string $sortBy  @default 'id'
+     * @param string $direction  @default 'desc'
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function filter(mixed $args = [], string $sortBy = "id", string $direction = "desc")
+    {
+        $filter = parent::filter($args, $sortBy, $direction);
+
+        if ( isset($args['search']) ) {
+            
+            $filter
+                ->where("name", "LIKE", "%{$args['search']}%")
+                ->where("email", "LIKE", "%{$args['search']}%");
+        }
+
+        return $filter;
     }
 }
