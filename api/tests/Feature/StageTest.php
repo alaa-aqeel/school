@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Division;
 use App\Models\Stage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -89,5 +90,26 @@ class StageTest extends TestCase
         $response = $this->deleteJson(route('stages.destroy', 1000));
 
         $response->assertStatus(404);
+    }
+
+    /**
+     * Test relate between division an stages 
+     * 
+     * @return void 
+     */
+    public function test_relate_with_division_sync()
+    {   
+        $divisionsIds = Division::factory(3)->create()->pluck("id"); // get only ids
+
+        $response = $this->postJson(route('stages.store'), [
+                "name" => "test name",
+                "divisions" => $divisionsIds
+            ]);
+
+        $response
+            ->assertStatus(201)
+            ->assertJsonPath("data.name", "test name")
+            ->assertJsonCount(3, "data.divisions")
+            ->assertJsonPath("message", __("messages.created"));
     }
 }

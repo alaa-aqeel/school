@@ -15,7 +15,7 @@
 ### [+] Stages 
 - [X] migrations + model 
 - [X] controller 
-- [-] testing 
+- [X] testing 
 - [X] reuqest + resource 
 - [X] relate to divisions 
 - [X] respostiroy
