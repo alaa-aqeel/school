@@ -23,9 +23,10 @@ class StageTest extends TestCase
 
         $response = $this->getJson(route('stages.index'));
 
+        // dd($response->json());
         $response
             ->assertStatus(200)
-            ->assertJsonCount(10);
+            ->assertJsonCount(10, "data");
     }
 
     /**
