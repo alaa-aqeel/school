@@ -10,6 +10,8 @@ use Tests\TestCase;
 
 class UsersTest extends TestCase
 {
+    use RefreshDatabase;
+    
     /**
      * Test create new user 
      *
