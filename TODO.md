@@ -1,27 +1,27 @@
 
 
-##
-### [+] create login 
-    [+] create token 
-    [+] testing 
 
-### [+] create users 
-    [+] controller 
-    [ ] testing 
-    [+] respostiroy
-    [+] request + resource 
+### [+] Auth - Login 
+- [X] create token 
+- [X] testing 
 
-##
-### [+] create stages 
-    [+] migrations + model 
-    [+] controller 
-    [-] testing 
-    [+] reuqest + resource 
-    [+] relate to divisions 
-    [+] respostiroy
+### [X] Users 
+- [X] controller 
+- [X] testing 
+- [X] respostiroy
+- [X] request + resource 
 
-### [+] create divisions ( classrooms ) 
-    [+] migrations + model 
-    [+] controller 
-    [+] testing 
-    [+] resource 
+
+### [+] Stages 
+- [X] migrations + model 
+- [X] controller 
+- [-] testing 
+- [X] reuqest + resource 
+- [X] relate to divisions 
+- [X] respostiroy
+
+### [+] Divisions ( classrooms ) 
+- [X] migrations + model 
+- [X] controller 
+- [X] testing 
+- [X] resource 
