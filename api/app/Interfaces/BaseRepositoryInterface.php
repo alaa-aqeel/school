@@ -4,6 +4,18 @@ namespace App\Interfaces;
 
 interface BaseRepositoryInterface {
 
+
+    /**
+     * Pagination with filters 
+     * 
+     * @param int $prePage @default 10 
+     * @param mixed $args  @default []
+     * @param string $sortBy  @default 'id'
+     * @param string $direction  @default 'desc'
+     * @return \Illuminate\Database\Eloquent\Builder::paginate
+     */
+    public function paginate($perPage = 10, mixed $args = [], string $sortBy = "id", string $direction = "desc");
+
     /**
      * Set model class 
      * 

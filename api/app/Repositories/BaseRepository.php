@@ -43,6 +43,8 @@ class BaseRepository implements BaseRepositoryInterface {
      * Filter recode 
      * 
      * @param mixed $args  @default []
+     * @param string $sortBy  @default 'id'
+     * @param string $direction  @default 'desc'
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function filter(mixed $args = [], string $sortBy = "id", string $direction = "desc")
@@ -55,6 +57,21 @@ class BaseRepository implements BaseRepositoryInterface {
         }
 
         return $filter;
+    }
+
+    /**
+     * Pagination with filters 
+     * 
+     * @param int $prePage @default 10 
+     * @param mixed $args  @default []
+     * @param string $sortBy  @default 'id'
+     * @param string $direction  @default 'desc'
+     * @return \Illuminate\Database\Eloquent\Builder::paginate
+     */
+    public function paginate($perPage = 10, mixed $args = [], string $sortBy = "id", string $direction = "desc")
+    {   
+        return $this->filter($args, $sortBy, $direction)
+                    ->paginate($perPage);
     }
 
     /**
