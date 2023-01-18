@@ -62,16 +62,17 @@ class BaseRepository implements BaseRepositoryInterface {
     /**
      * Pagination with filters 
      * 
-     * @param int $prePage @default 10 
      * @param mixed $args  @default []
      * @param string $sortBy  @default 'id'
      * @param string $direction  @default 'desc'
+     * @param int $prePage @default 10 
      * @return \Illuminate\Database\Eloquent\Builder::paginate
      */
-    public function paginate($perPage = 10, mixed $args = [], string $sortBy = "id", string $direction = "desc")
+    public function paginate(mixed $args = [], string $sortBy = "id", string $direction = "desc", $perPage = 10)
     {   
-        return $this->filter($args, $sortBy, $direction)
-                    ->paginate($perPage);
+        return $this
+                ->filter($args, $sortBy, $direction)
+                ->paginate($perPage);
     }
 
     /**
@@ -81,12 +82,11 @@ class BaseRepository implements BaseRepositoryInterface {
      */
     public function all()
     {
-
         return $this->model::all();
     }
 
     /**
-     * Get one recode by primary key 
+     * Get recode by primary key 
      * 
      * @param string|int $value
      * @return \Illuminate\Database\Eloquent\Model

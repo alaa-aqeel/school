@@ -16,8 +16,7 @@ class StageResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "name" => $this->name,
-            "divisions" => DivisionResource::collection($this->divisions),
+            "name" => $this->name
         ];
     }
 }

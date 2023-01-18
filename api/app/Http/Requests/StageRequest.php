@@ -25,8 +25,8 @@ class StageRequest extends FormRequest
     {
         return [
             "name" => "required|string|unique:stages,name,".$this->route("stage"),
-            "divisions" => "array|nullable",
-            "divisions.*" => "integer|exists:divisions,id"
+            "class" => "array|nullable",
+            "class.*" => "integer|exists:classes,id"
         ];
     }
 }

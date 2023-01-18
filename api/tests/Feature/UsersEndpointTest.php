@@ -22,12 +22,11 @@ class UsersTest extends TestCase
 
         $fakeUser = User::factory()->raw(["password" => "Test_test%%(99"]);
 
-        $response = $this->postJson(route('users.store'), $fakeUser);
+        $response = $this->postJson("/api/v1/users/", $fakeUser);
 
         $response
             ->assertStatus(201)
             ->assertJsonPath("message", __("messages.created"))
-            ->assertJsonPath("data.is_super", 0)
             ->assertJsonPath("data.is_active", 1);
     }
 
@@ -40,7 +39,7 @@ class UsersTest extends TestCase
     {
         User::factory(20)->create();
 
-        $response = $this->getJson(route('users.index'));
+        $response = $this->getJson("/api/v1/users/");
 
         $response
             ->assertStatus(200)
@@ -57,7 +56,7 @@ class UsersTest extends TestCase
     {
         $user = User::factory(20)->create()->first();
 
-        $response = $this->getJson(route('users.show', ["user" => $user->id ]));
+        $response = $this->getJson("/api/v1/users/{$user->id}");
 
         $response
             ->assertStatus(200)
@@ -75,9 +74,7 @@ class UsersTest extends TestCase
         $user = User::factory()->create();
         $raw = User::factory()->raw();
         
-        $route = route('users.update', ["user" => $user->id]);
-
-        $response = $this->putJson($route, [
+        $response = $this->putJson("/api/v1/users/{$user->id}", [
             "name" => $raw['name'],
             "email" => $raw['email']
         ]);
@@ -98,9 +95,7 @@ class UsersTest extends TestCase
     {
         $user = User::factory()->create();
         
-        $route = route('users.update', ["user" => $user->id]);
-
-        $response = $this->putJson($route, [
+        $response = $this->putJson("/api/v1/users/{$user->id}", [
             "name" => $user->name,
             "email" => $user->email,
             "password" => "tesT_pass2022!",

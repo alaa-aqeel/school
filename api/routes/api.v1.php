@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
  * Login user 
  * 
  */
-Route::post("login", [LoginController::class, "login"])->name("auth.login");
+Route::post("/auth/login", [LoginController::class, "login"])->name("auth.login");
 
 
 /**

@@ -1,0 +1,96 @@
+Users
+- id (primary key)
+- name
+- email
+- password
+- role_id (foreign key to Roles.id)
+
+
+# https://spatie.be/docs/laravel-permission/v5/introduction
+Roles
+- id (primary key)
+- name (e.g., student, teacher, administrator)
+
+Permissions
+- id (primary key)
+- name (e.g., view_students, edit_teachers)
+
+Role_Permission
+- role_id (foreign key to Roles.id)
+- permission_id (foreign key to Permissions.id)
+
+
+Userables
+- id (primary key)
+- user_id (foreign key to Users.id)
+- userable_id (foreign key to parents, students, or teachers)
+- userable_type (e.g., App\Parent, App\Student, App\Teacher)
+
+Parents
+- id (primary key)
+- name
+- email
+- phone
+- address
+
+Students
+- id (primary key)
+- name
+- email
+- phone
+- address
+- stage_id (foreign key to Stages.id)
+- class_id (foreign key to Classes.id)
+- parent_id (foreign key to Parents.id)
+
+Teachers
+- id (primary key)
+- name
+- email
+- phone
+- address
+
+Courses
+- id (primary key)
+- name
+- description
+- teacher_id (foreign key to Teachers.id)
+- stage_id (foreign key to Stages.id)
+
+ClassSchedules
+- id (primary key)
+- class_id (foreign key to Classes.id)
+- day
+- start_time
+- end_time
+
+CourseSchedules
+- id (primary key)
+- course_id (foreign key to Courses.id)
+- class_schedule_id (foreign key to ClassSchedules.id)
+
+Enrollments
+- student_id (foreign key to Students.id)
+- course_id (foreign key to Courses.id)
+- start_date
+- end_date
+
+
+Stages
+- id (primary key)
+- name (e.g., Grade 1, Grade 2, etc.)
+- description
+
+Classes
+- id (primary key)
+- name (e.g., Section A, Section B, etc.)
+- description
+- stage_id (foreign key to Stages.id)
+
+Attendance
+- id (primary key)
+- student_id (foreign key to Students.id)
+- class_schedule_id (foreign key to ClassSchedules.id)
+- date
+- attendance_status (e.g., present, absent, late)
+

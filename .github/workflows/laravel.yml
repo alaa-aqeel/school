@@ -23,7 +23,6 @@ jobs:
     - name: Copy .env
       run: |
         php -r "file_exists('.env') || copy('.env.example', '.env');"
-
     - name: Update composer
       run: composer update
     - name: Install Dependencies

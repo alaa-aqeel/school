@@ -14,7 +14,7 @@ interface BaseRepositoryInterface {
      * @param string $direction  @default 'desc'
      * @return \Illuminate\Database\Eloquent\Builder::paginate
      */
-    public function paginate($perPage = 10, mixed $args = [], string $sortBy = "id", string $direction = "desc");
+    public function paginate(mixed $args = [], string $sortBy = "id", string $direction = "desc", $perPage = 10);
 
     /**
      * Set model class 

@@ -22,9 +22,8 @@ class StageTest extends TestCase
     {
         Stage::factory(10)->create();
 
-        $response = $this->getJson(route('stages.index'));
+        $response = $this->getJson("/api/v1/stages/");
 
-        // dd($response->json());
         $response
             ->assertStatus(200)
             ->assertJsonCount(10, "data");
@@ -37,7 +36,7 @@ class StageTest extends TestCase
      */
     public function test_create_new_stage()
     {
-        $response = $this->postJson(route('stages.store'), ["name" => "test name"]);
+        $response = $this->postJson("/api/v1/stages/", ["name" => "test name"]);
 
         $response
             ->assertStatus(201)
@@ -56,7 +55,7 @@ class StageTest extends TestCase
     {
         $stage = Stage::factory()->create();
 
-        $response = $this->putJson(route('stages.update', $stage->id), ["name" => "new test name"]);
+        $response = $this->putJson("/api/v1/stages/{$stage->id}/", ["name" => "new test name"]);
 
         $response
             ->assertStatus(200)
@@ -74,7 +73,7 @@ class StageTest extends TestCase
     {
         $stage = Stage::factory()->create();
 
-        $response = $this->deleteJson(route('stages.destroy', $stage->id));
+        $response = $this->deleteJson("/api/v1/stages/{$stage->id}/");
 
         $response->assertStatus(204);
     }
@@ -87,29 +86,8 @@ class StageTest extends TestCase
     public function test_not_found_stage()
     {
 
-        $response = $this->deleteJson(route('stages.destroy', 1000));
+        $response = $this->deleteJson("/api/v1/stages/1000/");
 
         $response->assertStatus(404);
-    }
-
-    /**
-     * Test relate between division an stages 
-     * 
-     * @return void 
-     */
-    public function test_relate_with_division_sync()
-    {   
-        $divisionsIds = Division::factory(3)->create()->pluck("id"); // get only ids
-
-        $response = $this->postJson(route('stages.store'), [
-                "name" => "test name",
-                "divisions" => $divisionsIds
-            ]);
-
-        $response
-            ->assertStatus(201)
-            ->assertJsonPath("data.name", "test name")
-            ->assertJsonCount(3, "data.divisions")
-            ->assertJsonPath("message", __("messages.created"));
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class LoginTest extends TestCase
+class LoginEndpointTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -31,7 +31,7 @@ class LoginTest extends TestCase
         
         $credentials = $this->createUser();
 
-        $response = $this->postJson(route('auth.login'), $credentials); 
+        $response = $this->postJson("/api/v1/auth/login/", $credentials); 
 
         $response->assertStatus(200);
     }
@@ -45,7 +45,7 @@ class LoginTest extends TestCase
     {
         $credentials = $this->createUser(['is_active' => 0]);
 
-        $response = $this->postJson(route('auth.login'), $credentials); 
+        $response = $this->postJson("/api/v1/auth/login/", $credentials); 
 
         $response->assertStatus(401);
         $response->assertJsonPath("message", __("auth.failed"));
@@ -61,7 +61,7 @@ class LoginTest extends TestCase
     {
         $credentials = $this->createUser(['password' => '12345678910']);
 
-        $response = $this->postJson(route('auth.login'), $credentials); 
+        $response = $this->postJson("/api/v1/auth/login/", $credentials); 
 
         $response->assertStatus(401);
         $response->assertJsonPath("message", __("auth.failed"));
@@ -76,7 +76,7 @@ class LoginTest extends TestCase
     {
         $credentials = $this->createUser();
         
-        $response = $this->postJson(route('auth.login'), $credentials);     
+        $response = $this->postJson("/api/v1/auth/login/", $credentials);     
         
         $response
             ->assertStatus(200)
@@ -85,7 +85,6 @@ class LoginTest extends TestCase
                     "name",
                     "email",
                     "is_active",
-                    "is_super",
                     'created_at',
                     'updated_at',
                     "last_login_at"

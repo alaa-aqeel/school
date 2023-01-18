@@ -19,12 +19,17 @@ class Stage extends Model
         'name',
     ];
 
-    protected $with = ['divisions'];
 
-    public function divisions()
+
+    /**
+     * Get all classes for stage 
+     * 
+     * @return Model::hasMany
+     */
+    public function classes()
     {
 
-        return $this->belongsToMany(Division::class, "divisions_has_stages");
+        return $this->hasMany(Classes::class);
     }
 
 }

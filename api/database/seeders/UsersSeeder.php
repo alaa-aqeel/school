@@ -18,8 +18,7 @@ class UsersSeeder extends Seeder
         User::factory()
             ->create([
                 "name" => "super admin",
-                "email" => "admin@email.com",
-                'is_super' => 1,
+                "email" => "admin@email.com"
             ]);
     }
 }

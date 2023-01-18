@@ -14,11 +14,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     protected $model = User::class;
 
-    /**
-     * @var string 
-     */
-    protected string $primaryKey = 'id';
-
 
     private function hashPassword(mixed &$data)
     {

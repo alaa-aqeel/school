@@ -31,12 +31,12 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $users = $this->user->paginate(
-            $request->get("page", 10),
             [
                 "search" => $request->get("search", ''),
             ],
             $request->get("order", 'id'),
             $request->get("direction", 'desc'),
+            $request->get("page", 10),
         );
 
         return UserResource::collection($users);
