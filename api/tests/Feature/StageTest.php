@@ -40,7 +40,7 @@ class StageTest extends TestCase
         $response = $this->postJson(route('stages.store'), ["name" => "test name"]);
 
         $response
-            ->assertStatus(201)
+            ->assertStatus(202)
             ->assertJsonPath("data.name", "test name")
             ->assertJsonPath("message", __("messages.created"));
     }
